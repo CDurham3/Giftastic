@@ -15,7 +15,7 @@ function renderButtons() {
     }
     
 }
-
+//Initial character buttons
 renderButtons();
 
 //This function handles when the submit button is clicked
@@ -27,20 +27,22 @@ $("#add-character").on("click", function(event) {
     renderButtons();
 })
 
-
+//This function displays the desired character gifs
 function displayCharGifs() {
+    //clears the gif button div every time a new search button is clicked
     document.getElementById("gif-buttons").innerHTML = "";
     const gifChar = $(this).val();
     console.log(gifChar);
+    //runs the API giphy search for the game character that was clicked
     const apiKey = "vz7Y8pRS78sIakq0OvKYZ6UeiByUJ6DV";
-    var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=" + gifChar + "&api_key=" + apiKey + "&limit=10");
+    var xhr = $.get("https://api.giphy.com/v1/gifs/search?q=" + gifChar + "&api_key=" + apiKey + "&limit=10");
     xhr.done(function(response) { 
     
     console.log("success got response", response); 
 
     var gifs = response.data;
     
-
+    //posts 10 gifs and their rating for the chosen game character
     for (i in gifs) {
 
         var ratings = $("<p>").text("Rating: " + response.data[i].rating);
@@ -54,9 +56,9 @@ function displayCharGifs() {
             `
         );
     };
-
+    //currently not able to switch between still and moving gifs
     
 });
 }
-
+//on click event that waits for a game character button to be clicked
 $(document).on("click", ".game-character", displayCharGifs);
